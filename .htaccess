@@ -1,0 +1,23 @@
+RewriteBase /
+RewriteEngine On
+
+# This code will be executed if the URL contains /api/.
+# If we choose not to employ URL rewriting, we would need to use a URL structure such as apis.selfmade.one/api/index.php?request=verify. However, with URL rewriting in place, we can simplify the URL to apis.selfmade.one/api/verify for a cleaner and more user-friendly appearance.
+RewriteRule ^/?api/([^/]+)?$ api/index.php?rquest=$1 [QSA,NC,L]
+RewriteRule ^/?api/([^/]+)/([^/]+)?$ api/index.php?rquest=$2&namespace=$1 [QSA,NC,L]
+
+  # Redirect requests with .php extension to throw a 404 Not Found error
+  RewriteCond %{THE_REQUEST} \.git [NC]
+  RewriteRule \.php$ - [F,L]\
+
+
+# This code is triggered when the URL does not contain /api/ and includes a filename with a .php extension, such as the example "index.php."
+# For general files, if not above, just remove .php
+
+# Redirect external .php requests to 404 Error (Pretending that I am not doing PHP)
+RewriteCond %{THE_REQUEST} ^(.+)\.php([#?][^\ ]*)?\ HTTP/
+RewriteRule ^(.+)\.php$ "http://%{HTTP_HOST}/$1" [R=404,L]
+
+# Resolve .php file for extensionless php urls
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^/.]+)$ $1.php [L]
