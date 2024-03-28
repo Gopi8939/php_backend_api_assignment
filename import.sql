@@ -79,9 +79,10 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `college` varchar(255) NOT NULL,
   `mobile` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `role` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- 2024-03-27 04:35:38
+-- 2024-03-28 05:52:57
